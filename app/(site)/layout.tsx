@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import { draftMode } from "next/headers";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import LiveVisualEditing from "@/components/live-visual-editing";
 import Header from "@/components/header";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,6 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header />
         <main className="min-h-screen">{children}</main>
+        {draftMode().isEnabled && <LiveVisualEditing />}
       </body>
     </html>
   );

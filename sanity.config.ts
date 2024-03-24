@@ -1,6 +1,7 @@
 // ./sanity.config.ts
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { presentationTool } from "sanity/presentation";
 
 import { schemaTypes } from "@/sanity/schemas";
 
@@ -12,7 +13,16 @@ export default defineConfig({
 
   projectId,
   dataset,
-  plugins: [structureTool()],
+  plugins: [
+    structureTool(),
+    presentationTool({
+      previewUrl: {
+        draftMode: {
+          enable: "/api/draft",
+        },
+      },
+    }),
+  ],
   schema: {
     types: schemaTypes,
   },

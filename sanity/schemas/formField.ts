@@ -41,8 +41,8 @@ export default defineType({
       },
     }),
     defineField({
-      name: "value",
-      description: "Initial/placeholder value",
+      name: "label",
+      description: "Label for field",
       type: "string",
     }),
   ],
