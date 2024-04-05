@@ -1,11 +1,13 @@
 import { defineField, defineType } from "sanity";
-export default defineType({
-  name: "form",
+export const formspreeFormType = defineType({
+  name: "formspreeForm",
+  title: "Formspree form",
   type: "document",
   fields: [
     defineField({
-      name: "htmlId",
-      type: "slug",
+      name: "formspreeId",
+      type: "string",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "fields",
@@ -15,7 +17,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "htmlId.current",
+      title: "formspreeId",
     },
   },
 });

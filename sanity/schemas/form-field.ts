@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity";
 
-export default defineType({
+export const formFieldType = defineType({
   name: "formField",
   type: "object",
   fields: [
@@ -42,7 +42,7 @@ export default defineType({
     }),
     defineField({
       name: "label",
-      description: "Label for field",
+      description: "Text for UI",
       type: "string",
     }),
   ],
