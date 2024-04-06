@@ -227,4 +227,23 @@ export type KWESFORM_FORM_QUERYResult = {
     _key: string;
   } & FormField>;
 } | null;
+// Variable: ALL_KWESFORM_FORM_QUERY
+// Query: *[_type == "kwesForm"]
+export type ALL_KWESFORM_FORM_QUERYResult = Array<{
+  _id: string;
+  _type: "kwesForm";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  id?: number;
+  website_id?: number;
+  name?: string;
+  connected?: number;
+  action?: string;
+  created_at?: string;
+  updated_at?: string;
+  fields?: Array<{
+    _key: string;
+  } & FormField>;
+}>;
 

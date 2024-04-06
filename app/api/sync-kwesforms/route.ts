@@ -1,8 +1,9 @@
 /**
- * A Silver level plan is needed to get access to KwesForm's API.
- * This example was built without access to their API, instead using mock data. Unless their API has changed this example should work with a few edits.
+ * Example sync function for KwesForms + Sanity.
  */
 import { client } from "@/sanity/lib/client";
+import { ALL_KWESFORM_FORM_QUERY } from "@/sanity/lib/queries";
+import { ALL_KWESFORM_FORM_QUERYResult, KwesForm } from "@/sanity/types";
 
 // Initialize Sanity client
 const clientWithToken = client.withConfig({
@@ -11,12 +12,18 @@ const clientWithToken = client.withConfig({
 
 // Get kwesForm documents from Sanity
 async function getKwesFormDocuments() {
-  const forms = await clientWithToken.fetch('*[_type == "kwesForm"]');
+  const forms = await clientWithToken.fetch<ALL_KWESFORM_FORM_QUERYResult>(
+    ALL_KWESFORM_FORM_QUERY
+  );
   return forms;
 }
 
 // Combine documents with KwesForm API response
-function mergeWithDocuments(apiResponse, formDocuments) {
+function mergeWithDocuments(
+  apiResponse: KwesAPIResponse,
+  formDocuments: ALL_KWESFORM_FORM_QUERYResult
+) {
+  // TODO: compare the updatedAt info to only write what's changed
   return apiResponse.map((form) => {
     const document = formDocuments.filter((doc) => doc.id === form.id)[0];
     return { ...document, ...form, _type: "kwesForm" };
@@ -28,32 +35,44 @@ async function updateFormDocuments() {
   const currentForms = await getKwesFormDocuments();
   const apiForms = await getKwesForms();
   const apiFormDocuments = mergeWithDocuments(apiForms, currentForms);
+
+  let responses: KwesForm[] = [];
+
   for (let i = 0; i < apiFormDocuments.length; i += 1) {
-    clientWithToken.createOrReplace(apiFormDocuments[i]).then((res) => {
-      console.log("res", res);
+    await clientWithToken.createOrReplace(apiFormDocuments[i]).then((res) => {
       console.log(`KwesForm was created, document ID is ${res._id}`);
+      responses.push(res);
     });
   }
-  return null;
+  return responses;
 }
 
 /**
  * Route handler.
  */
-export async function POST(request: Request) {
+export async function POST() {
   const update = await updateFormDocuments();
-  console.log("updateForm", update);
-  return new Response("yes");
+  return Response.json(update);
 }
 
-// Mock API response for KwesForm docs
+// Mock Form API response from KwesForm docs. A
+type KwesAPIResponse = {
+  id: number;
+  website_id: number;
+  name: string;
+  connected: number;
+  action: string;
+  created_at: string;
+  updated_at: string;
+}[];
+
 const mockAPIData = [
   {
     id: 2,
     website_id: 4,
     name: "My Form",
     connected: 1,
-    action: "https://kwes.io/api/foreign/forms/BxdOjqAKMfIPT5cMf7E4",
+    action: "https://kwes.io/api/foreign/forms/-------------------",
     created_at: "2021-04-13 13:57:51",
     updated_at: "2021-06-12 15:57:36",
   },
@@ -62,29 +81,14 @@ const mockAPIData = [
     website_id: 12,
     name: "Another Form",
     connected: 0,
-    action: "https://kwes.io/api/foreign/forms/xBDa5K9uWVbVfirmFDaL",
+    action: "https://kwes.io/api/foreign/forms/-------------------",
     created_at: "2021-06-12 15:58:33",
     updated_at: "2021-06-12 15:58:33",
   },
 ];
 
-// Un-comment the code inside when you have a token, for now we use mock data from the KwesForms docs
+// API docs have example fetch requests against their API
 async function getKwesForms() {
-  // KwesForms docs example for fetching all forms:
-  // var myHeaders = new Headers();
-  // myHeaders.append("Accept", "application/json");
-  // myHeaders.append("Content-Type", "application/json");
-  // myHeaders.append("Authorization", "Bearer {API_TOKEN}");
-
-  // var requestOptions = {
-  //   method: 'GET',
-  //   headers: myHeaders,
-  //   redirect: 'follow'
-  // };
-
-  // fetch("https://kwes.io/api/v1/forms", requestOptions)
-  //   .then(response => response.text())
-  //   .then(result => console.log(result))
-  //   .catch(error => console.log('error', error));
+  // For now return mock data to illustrate
   return mockAPIData;
 }
