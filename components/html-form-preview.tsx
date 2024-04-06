@@ -5,7 +5,7 @@ import { QueryResponseInitial, useQuery } from "@sanity/react-loader";
 
 import HTMLForm from "@/components/html-form";
 import { HTML_FORM_QUERYResult } from "@/sanity/types";
-import { FormPageParams } from "@/app/(site)/sanity-form/[_id]/page";
+import { FormPageParams } from "@/app/(site)/html-form/[_id]/page";
 
 export default function HTMLFormPreview({
   initial,

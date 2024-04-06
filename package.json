@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "extract":"npx sanity schema extract",
-    "generate":"npx sanity typegen generate"
+    "extract": "npx sanity schema extract",
+    "generate": "npx sanity typegen generate"
   },
   "dependencies": {
     "@formspree/react": "^2.5.1",

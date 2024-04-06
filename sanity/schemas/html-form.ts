@@ -1,11 +1,12 @@
 import { defineField, defineType } from "sanity";
+
 export const htmlFormType = defineType({
   name: "htmlForm",
   title: "HTML form",
   type: "document",
   fields: [
     defineField({
-      name: "htmlId",
+      name: "id",
       type: "slug",
     }),
     defineField({

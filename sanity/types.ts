@@ -125,6 +125,24 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
+export type KwesForm = {
+  _id: string;
+  _type: "kwesForm";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  id?: number;
+  website_id?: number;
+  name?: string;
+  connected?: number;
+  action?: string;
+  created_at?: string;
+  updated_at?: string;
+  fields?: Array<{
+    _key: string;
+  } & FormField>;
+};
+
 export type FormspreeForm = {
   _id: string;
   _type: "formspreeForm";
@@ -150,7 +168,7 @@ export type HtmlForm = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  htmlId?: Slug;
+  id?: Slug;
   fields?: Array<{
     _key: string;
   } & FormField>;
@@ -172,7 +190,7 @@ export type HTML_FORM_QUERYResult = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  htmlId?: Slug;
+  id?: Slug;
   fields?: Array<{
     _key: string;
   } & FormField>;
@@ -186,6 +204,25 @@ export type FORMSPREE_FORM_QUERYResult = {
   _updatedAt: string;
   _rev: string;
   formspreeId?: string;
+  fields?: Array<{
+    _key: string;
+  } & FormField>;
+} | null;
+// Variable: KWESFORM_FORM_QUERY
+// Query: *[_type == "kwesForm" && _id == $_id][0]
+export type KWESFORM_FORM_QUERYResult = {
+  _id: string;
+  _type: "kwesForm";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  id?: number;
+  website_id?: number;
+  name?: string;
+  connected?: number;
+  action?: string;
+  created_at?: string;
+  updated_at?: string;
   fields?: Array<{
     _key: string;
   } & FormField>;

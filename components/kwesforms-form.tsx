@@ -1,17 +1,17 @@
-import { HtmlForm } from "@/sanity/types";
+import { KwesForm } from "@/sanity/types";
 import HTMLFormField from "./html-form-field";
 import FormLayout from "./form-layout";
 
-interface HTMLFormProps extends HtmlForm {}
-
-export default function HTMLForm({ fields, id }: HTMLFormProps) {
-  if (!fields) return null;
+export default function KwesFormsForm({ action, fields }: KwesForm) {
   return (
     <FormLayout>
-      <form className="space-y-4 lg:min-w-[400px] pt-5" id={id?.current}>
-        {fields.map((field) => (
-          <HTMLFormField key={field._key} {...field} />
-        ))}
+      <form
+        action={action}
+        method="POST"
+        className="space-y-4 lg:min-w-[400px] pt-5"
+      >
+        {fields &&
+          fields.map((field) => <HTMLFormField key={field._key} {...field} />)}
 
         <div className="mt-4 flex justify-end">
           <button
