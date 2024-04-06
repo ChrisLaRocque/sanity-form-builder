@@ -14,6 +14,54 @@ Mostly to show an example of building a basic form, most other integrations have
 
 Used in most of the examples. The schema and component only show a basic variety of fields, but the list of options could be added to
 
+## Formspree Form
+
+A Sanity-controlled Formspree form. As far as I can tell, there's no API to sync form IDs from Formspree to Sanity, so this set up requires some manual copy+pasting until that's possible.
+
+### Files to look at
+
+```
+./sanity/schemas/formspree-form.ts
+./components/formspree-form.tsx
+```
+
+### Packages to install
+
+```bash
+npm install @formspree/react
+```
+
+### Formspree docs
+
+[Formspree Nextjs Guide](https://formspree.io/guides/nextjs/)
+
+## KwesForms Form
+
+### Sync API handler
+
+`./app/api/sync-kwesforms/route.ts` contains logic for fetching from KwesForm's API and syncing forms in their platform with Sanity in a 'read-only' mode. The included schema + component then allows Studio users to add fields to the synced Kwesforms.
+
+### Component + schema
+
+### Files to look at
+
+```
+./sanity/schemas/kwesforms-form.ts
+./components/kwesforms-form.tsx
+```
+
+### Packages to install
+
+This example doesn't use the package below, but their [getting started guide](https://kwesforms.com/docs/v2/form-setup) provides it as an optional step.
+
+```bash
+npm install kwesforms
+```
+
+### KwesForms docs
+
+[Kwesforms Setup Guide](https://kwesforms.com/docs/v2/form-setup)
+
 ## To do
 
 - investigate Formium
