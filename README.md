@@ -64,9 +64,9 @@ npm install kwesforms
 
 ## To do
 
-- investigate Formium
+- Formium
 - Hubspot
-
-1. Create api route to hit /forms/v2/forms https://legacydocs.hubspot.com/docs/methods/forms/v2/get_forms
-2. create/update comparing Sanity's updatedAt and hubspot's
-3. guid and portalId to next-hubspot? https://github.com/snelsi/next-hubspot/tree/master
+  1. Create api route to hit /forms/v2/forms https://legacydocs.hubspot.com/docs/methods/forms/v2/get_forms
+  2. create/update comparing Sanity's updatedAt and hubspot's
+  3. guid and portalId to next-hubspot? https://github.com/snelsi/next-hubspot/tree/master
+- Typeform https://www.typeform.com/developers/create/reference/retrieve-forms/#retrieve-forms
